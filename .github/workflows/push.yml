@@ -1,0 +1,17 @@
+name: Demo
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v3
+      - run: npm i
+
+      - name: test default imports
+        run: time npx esbuild defaultImport.mjs --bundle --outfile=out.js --loader:.mjs=jsx
+
+      - name: test named imports
+        run: time npx esbuild namedImport.mjs --bundle --outfile=out.js --loader:.mjs=jsx
